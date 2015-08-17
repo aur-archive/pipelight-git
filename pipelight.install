@@ -1,0 +1,67 @@
+post_install(){
+#        echo -e "\tConfiguration example in /usr/share/examples/pipelight/pipelight-compholio-config"
+#        echo -e "\tcp /usr/share/pipelight/pipelight-compholio-config ~/.config/pipelight"
+
+        echo
+        echo -e "\tFor websites with a browser detection such as netflix you need to change your user agent (https://answers.launchpad.net/pipelight/+faq/2351). Useful addons:"
+        echo -e "\tFirefox: https://addons.mozilla.org/de/firefox/addon/user-agent-switcher/"
+        echo -e "\tChrome: https://chrome.google.com/webstore/detail/user-agent-switcher-for-c/djflhoibgkdhkhhcedjiklpkjnoahfmg"
+        echo -e "\tThis user agent should work:"
+        echo -e "\tMozilla/5.0 (Windows NT 6.1; rv:23.0) Gecko/20131011 Firefox/23.0"
+
+        echo
+        echo -e "\tAfter installation use the supplied pipelight-plugin script to \"enable\" plugins (symlinking the plugins to the plugin directory) like so:"
+        echo -e "\t\tpipelight-plugin --enable silverlight"
+        echo -e "\tYou may need to initialize ~/.wine-pipelight yourself, by for example running this script:"
+        echo -e "\t\t/usr/share/pipelight/scripts/configure-silverlight"
+        echo -e "\tThen, start a browser. It will install the plugins when they are first requested (e.g. in firefox, go to about:plugins)"
+
+        echo
+        echo -e "\tTo prevent every browser from spotify to your RSS reader to pick up and automatically start the plugin, use the MOZ_PLUGIN_PATH environment variable like so:"
+        echo -e "\t\tmkdir \"\$HOME/.pipelight-plugins/\""
+        echo -e "\t\tMOZ_PLUGIN_PATH=\"\$HOME/.pipelight-plugins/\" pipelight-plugin --enable silverlight"
+        echo -e "\t\tMOZ_PLUGIN_PATH=\"\$HOME/.pipelight-plugins/\" firefox-nightly"
+
+#        echo
+#        echo -e "\tTo prevent every browser from your newsreade to spotify to load the plugin, it is by default only installed in /usr/lib/pipelight/libpipelight.so"
+#        echo -e "\tTo enable it in your home directory:"
+#        echo -e "\tmkdir -p $HOME/.mozilla/plugin; ln -s /usr/lib/pipelight/libpipelight.so $HOME/.mozilla/plugins"
+#        echo -e "\tor for a system wide installation:"
+#        echo -e "\tsudo ln -s /usr/lib/pipelight/libpipelight.so /usr/lib/mozilla/plugins/"
+
+#        echo
+#        echo -e "\tPreparing your wine:"
+#        echo -e "\tWINEPREFIX="$HOME"/.wine-pipelight WINEARCH=win32 /opt/wine-compholio/bin/wineboot"
+
+#        Changes from original example config to compholio config:
+#        echo
+#        echo -e "\tPreparing pipelight config ~/.config/pipelight"
+#        echo -e '\tedit "pluginLoaderPath = PLUGIN_LOADER_PATH" to "pluginLoaderPath = /usr/share/pipelight/pluginloader.exe" (if necessary)'
+#        echo -e '\tedit "dllPath = c:\\Program Files\\Silverlight\\5.1.20513.0\\" to "dllPath = c:\\Program Files\\Microsoft Silverlight\\5.1.20513.0\\" (if necessary)'
+#        echo -e "\tEITHER:"
+#        echo -e "\t\t1) in ~/.config/pipelight edit "gccRuntimeDlls = /usr/lib/gcc/i686-w64-mingw32/4.6/" to "gccRuntimeDlls = /opt/mingw_w32/i686-w64-mingw32/lib/""
+#        echo -e "\t\t2) ln -s /opt/mingw_w32/i686-w64-mingw32/lib/*.dll .wine-pipelight/drive_c/windows/system32"
+#        echo -e '\tedit "graphicDriverCheck = /usr/share/wine-silverlight/hw-accel-default" to "graphicDriverCheck = /usr/bin/false" (try /usr/bin/true!)'  #"graphicDriverCheck = /usr/share/wine-silverlight/hw-accel-default"' doesn't even work what the fuck
+
+#        echo
+#        echo -e "\tGet silverlight 5.1.20513.0 with"
+#        echo -e "\twget --user-agent='Mozilla/5.0 (Windows NT 6.1; rv:23.0) Gecko/20131011 Firefox/23.0' 'http://www.microsoft.com/getsilverlight/handlers/getsilverlight.ashx' -O Silverlight5.1.exe"
+#        echo -e "\tInstall it with"
+#        echo -e "\tWINEPREFIX="$HOME"/.wine-pipelight WINEARCH=win32 /opt/wine-compholio/bin/wine Silverlight5.1.exe"
+
+        echo
+        echo -e "\tWith firefox you may have to delete pluginreg.dat (https://answers.launchpad.net/pipelight/+faq/2348) with"
+        echo -e "\trm ~/.mozilla/firefox/*/pluginreg.dat"
+
+#        echo
+#        echo -e "\tFor lovefilm you need mpg2splt.ax from dshow"
+#        echo -e "\twget http://download.microsoft.com/download/8/0/D/80D7E79D-C0E4-415A-BCCA-E229EAFE2679/dshow_nt.cab"
+#        echo -e "\tcabextract "dshow_nt.cab" -F "mpg2splt.ax""
+#        echo -e "\tmv mpg2splt.ax "$HOME/.wine-pipelight/drive_c/windows/system32""
+#        echo -e "\tWINEPREFIX="$HOME/.wine-pipelight/" WINEARCH=win32 /opt/wine-compholio/bin/wine regsvr32.exe "mpg2splt.ax""
+}
+
+post_upgrade(){
+        post_install
+}
+
